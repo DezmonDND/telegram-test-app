@@ -1,0 +1,21 @@
+.footer {
+  display: flex;
+  width: 100%;
+  min-height: 40px;
+  color: #fff;
+  background-color: #2f2f2f;
+  position: fixed;
+  bottom: 0;
+}
+
+.footer__buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.footer__button-link {
+  color: #fff;
+  text-decoration: none;
+}
