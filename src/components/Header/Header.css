@@ -3,4 +3,10 @@
   color: #fff;
   background-color: #2f2f2f;
   justify-content: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 60px;
+
 }

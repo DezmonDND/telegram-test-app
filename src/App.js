@@ -5,6 +5,7 @@ import Header from "./components/Header/Header";
 import Cards from "./components/Cards/Cards";
 import Currencys from "./components/Currencys/Currencys";
 import Requests from "./components/Requests/Requests";
+import Cbr from "./components/Cbr/Cbr";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/cards" element={<Cards></Cards>}></Route>
         <Route path="/currencys" element={<Currencys></Currencys>}></Route>
+        <Route path="/cbr" element={<Cbr></Cbr>}></Route>
         <Route path="/requests" element={<Requests></Requests>}></Route>
       </Routes>
       <Footer></Footer>

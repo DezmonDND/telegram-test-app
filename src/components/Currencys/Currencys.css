@@ -1,0 +1,20 @@
+.currencys {
+  padding: 70px 0;
+}
+
+.currencys__container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #A9A9A9;
+
+}
+
+.currencys__title {
+  margin: 0;
+  font-weight: 500;
+}
+
+.currencys__price {
+  margin: 0;
+}

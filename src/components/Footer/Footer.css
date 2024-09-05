@@ -1,7 +1,7 @@
 .footer {
   display: flex;
   width: 100%;
-  min-height: 40px;
+  min-height: 70px;
   color: #fff;
   background-color: #2f2f2f;
   position: fixed;
@@ -11,11 +11,23 @@
 .footer__buttons {
   display: flex;
   justify-content: center;
+  margin: 5px 0 5px;
   gap: 20px;
   width: 100%;
 }
 
 .footer__button-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   color: #fff;
   text-decoration: none;
+  gap: 5px;
+}
+
+.footer__image {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
 }
