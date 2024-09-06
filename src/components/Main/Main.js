@@ -9,7 +9,7 @@ function Main() {
 
   return (
     <main className="main">
-      {location.pathname === "/cards" && <Cards></Cards>}
+      {location.pathname === "/" && <Cards></Cards>}
       {location.pathname === "/currencys" && <Currencys></Currencys>}
       {location.pathname === "/requests" && <Requests></Requests>}
     </main>

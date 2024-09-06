@@ -8,8 +8,6 @@ function Cbr() {
   useEffect(() => {
     Promise.all([api.getRussianBankCurrencys()])
       .then((res) => {
-        console.log(res[0].Valute);
-
         setCurrencys(res);
       })
       .catch((e) => {

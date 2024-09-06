@@ -6,24 +6,23 @@ function Requests() {
   const socket = new WebSocket("https://echo.websocket.org/.ws");
   const [message, setMessage] = useState("");
   const [inputValue, setInputValue] = useState("");
+  const [isValid, setIsValid] = useState(false);
 
-  function onConnect() {
+  useEffect(() => {
     socket.onopen = (e) => {
       setMessage("Соединение установлено");
     };
-  }
-
-  function onClose() {
-    socket.onclose = (e) => {
-      setMessage("Соединение завершено!");
-    };
-  }
-
-  useEffect(() => {
-    onConnect();
 
     socket.onmessage = (e) => {
-      setMessage("Добро пожаловать!");
+      if (e.data.startsWith("Request served by")) {
+        setMessage("Добро пожаловать!");
+      } else {
+        setMessage(e.data);
+      }
+    };
+
+    socket.onerror = (e) => {
+      setMessage(e.message);
     };
 
     return () => {
@@ -31,22 +30,27 @@ function Requests() {
     };
   }, [setMessage]);
 
-  const handleAddMessage = useCallback(
-    (e) => {
-      e.preventDefault();
+  function handleAddMessage() {
+    if (socket.readyState) {
+      setIsValid(true);
+      socket.send(
+        JSON.stringify({
+          message: inputValue,
+        })
+      );
 
-      if (socket.readyState === 1) {
-        socket.send(
-          JSON.stringify({
-            message: inputValue,
-          })
-        );
-      }
-    },
-    [inputValue]
-  );
+      setMessage(inputValue);
+    } else {
+      setTimeout(handleAddMessage, 50);
+    }
+  }
 
   const handleChange = useCallback((e) => {
+    if (e.target.value.length !== 0) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
     setInputValue(e.target.value);
   }, []);
 
@@ -64,11 +68,15 @@ function Requests() {
         ></input>
       </div>
       <div className="requests__buttons">
-        <button className="requests__button" onClick={handleAddMessage}>
+        <button
+          disabled={!isValid}
+          style={{
+            backgroundColor: !isValid ? "#C2C2C2" : "",
+          }}
+          className="requests__button"
+          onClick={handleAddMessage}
+        >
           Отправить сообщение
-        </button>
-        <button className="requests__button" type="button" onClick={onClose}>
-          Завершить соединение
         </button>
       </div>
       {message && <p className="requests__message">{message}</p>}

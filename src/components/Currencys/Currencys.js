@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import "./Currencys.css";
 import { api } from "../utils/api";
+import "./Currencys.css";
 
 function Currencys() {
   const [currencys, setCurrencys] = useState([]);

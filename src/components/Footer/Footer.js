@@ -9,7 +9,7 @@ function Footer() {
     <footer className="footer">
       <div className="footer__buttons">
         <div className="footer__buttons-block">
-          <Link to="/cards" className="footer__button-link">
+          <Link to="/" className="footer__button-link">
             <span className="footer__link-name">Новости</span>
 
             <img className="footer__image" src={IconNews} alt=""></img>
