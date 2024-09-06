@@ -38,7 +38,7 @@ function Cards() {
       <div className="cards__block">
         {news.length !== 0 &&
           newsList.map((item) => (
-            <div className="cards__container" id={item.id}>
+            <div className="cards__container" key={item.id}>
               <p className="cards__author">{item.title}</p>
               {item.title.length !== 0 && (
                 <a

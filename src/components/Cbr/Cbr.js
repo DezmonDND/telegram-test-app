@@ -4,59 +4,40 @@ import "./Cbr.css";
 
 function Cbr() {
   const [currencys, setCurrencys] = useState([]);
+  const [date, setDate] = useState([]);
 
   useEffect(() => {
-    Promise.all([api.getRussianBankCurrencys()])
+    api
+      .getRussianBankCurrencys()
       .then((res) => {
-        setCurrencys(res);
+        let result = Object.values(res.Valute);
+        setCurrencys(result);
+        setDate(res);
       })
       .catch((e) => {
         console.log(e);
       });
   }, [setCurrencys]);
 
+  function convertDate(data) {
+    let date = new Date(data);
+    return date.toLocaleDateString();
+  }
+
   return (
     <section className="currencys">
-      <div className="currencys__block">
-        {currencys.length !== 0 && (
-          <div className="currencys__text">{currencys[0].Valute.AED.Name}</div>
-        )}
-        {currencys.length !== 0 && (
-          <div className="currencys__text">{currencys[0].Valute.AED.Value}</div>
-        )}
-      </div>
-      <div className="currencys__block">
-        {currencys.length !== 0 && (
-          <div className="currencys__text">{currencys[0].Valute.EUR.Name}</div>
-        )}
-        {currencys.length !== 0 && (
-          <div className="currencys__text">{currencys[0].Valute.EUR.Value}</div>
-        )}
-      </div>
-      <div className="currencys__block">
-        {currencys.length !== 0 && (
-          <div className="currencys__text">{currencys[0].Valute.TRY.Name}</div>
-        )}
-        {currencys.length !== 0 && (
-          <div className="currencys__text">{currencys[0].Valute.TRY.Value}</div>
-        )}
-      </div>
-      <div className="currencys__block">
-        {currencys.length !== 0 && (
-          <div className="currencys__text">{currencys[0].Valute.USD.Name}</div>
-        )}
-        {currencys.length !== 0 && (
-          <div className="currencys__text">{currencys[0].Valute.USD.Value}</div>
-        )}
-      </div>
-      <div className="currencys__block">
-        {currencys.length !== 0 && (
-          <div className="currencys__text">{currencys[0].Valute.AMD.Name}</div>
-        )}
-        {currencys.length !== 0 && (
-          <div className="currencys__text">{currencys[0].Valute.AMD.Value}</div>
-        )}
-      </div>
+      {date.Date !== "" && (
+        <h2 className="currencys__title_cbr">{`Курс валют на: ${convertDate(
+          date.Date
+        )}`}</h2>
+      )}
+      {currencys.length !== 0 &&
+        currencys.map((currency) => (
+          <div className="currencys__block" key={currency.Name}>
+            <div className="currencys__text">{currency.Name}</div>
+            <div className="currencys__text">{currency.Value}</div>
+          </div>
+        ))}
     </section>
   );
 }
