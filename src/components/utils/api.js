@@ -13,7 +13,7 @@ export class Api {
   }
 
   getNews() {
-    return fetch(`${this._cardsUrl}&apiKey=d8773ba00bc146c6a51a373c0237e141`, {
+    return fetch(this._cardsUrl, {
       method: "GET",
     }).then(this._checkError);
   }
@@ -25,15 +25,12 @@ export class Api {
   }
 
   getRussianBankCurrencys() {
-    return fetch(this._cbrUrl, {
-      method: "GET",
-    }).then(this._checkError);
+    return fetch(this._cbrUrl, {}).then(this._checkError);
   }
 }
 
 export const api = new Api({
-  cardsUrl: "https://newsapi.org/v2/top-headlines?country=us&category=business",
+  cardsUrl: "https://api.spacexdata.com/v3/history",
   currencysUrl: "https://data-api.binance.vision/api/v3/ticker/price",
-  cbrUrl:
-    "https://iss.moex.com/iss/statistics/engines/currency/markets/selt/rates.json?iss.meta=off",
+  cbrUrl: "http://www.cbr-xml-daily.ru/daily_json.js",
 });

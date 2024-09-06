@@ -10,34 +10,38 @@ function Requests() {
   function onConnect() {
     socket.onopen = (e) => {
       setMessage("Соединение установлено");
-      console.log("Соединение установлено");
+    };
+  }
+
+  function onClose() {
+    socket.onclose = (e) => {
+      setMessage("Соединение завершено!");
     };
   }
 
   useEffect(() => {
-    console.log(message);
-
     onConnect();
 
     socket.onmessage = (e) => {
-      console.log(e);
-      setMessage("Получено сообщение: " + e.data);
+      setMessage("Добро пожаловать!");
     };
 
     return () => {
-      socket.close();
+      setMessage("Соединение завершено!");
     };
-  }, [message]);
+  }, [setMessage]);
 
   const handleAddMessage = useCallback(
     (e) => {
       e.preventDefault();
 
-      socket.send(
-        JSON.stringify({
-          message: inputValue,
-        })
-      );
+      if (socket.readyState === 1) {
+        socket.send(
+          JSON.stringify({
+            message: inputValue,
+          })
+        );
+      }
     },
     [inputValue]
   );
@@ -51,17 +55,20 @@ function Requests() {
       <h1>WebSocket</h1>
 
       <div className="requests__container">
-        <span>Сообщение:</span>
         <input
           className="requests__input"
           type="text"
+          placeholder="Введите сообщение"
           value={inputValue}
           onChange={handleChange}
         ></input>
       </div>
-      <div className="row">
+      <div className="requests__buttons">
         <button className="requests__button" onClick={handleAddMessage}>
           Отправить сообщение
+        </button>
+        <button className="requests__button" type="button" onClick={onClose}>
+          Завершить соединение
         </button>
       </div>
       {message && <p className="requests__message">{message}</p>}

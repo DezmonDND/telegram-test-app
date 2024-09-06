@@ -1,0 +1,10 @@
+.currencys {
+    padding: 75px 15px;
+}
+
+.currencys__block {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #A9A9A9;
+}

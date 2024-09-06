@@ -5,7 +5,6 @@ import { api } from "../utils/api";
 function Currencys() {
   const [currencys, setCurrencys] = useState([]);
   const currencysList = currencys.slice(0 - 99);
-  console.log(currencysList);
 
   useEffect(() => {
     api.getCurrencys().then((res) => {
@@ -14,16 +13,16 @@ function Currencys() {
   }, [setCurrencys]);
 
   return (
-    <section className="currencys">
+    <ul className="currencys">
       {currencysList.length !== 0 &&
         currencysList.map((item) => (
-          <div className="currencys__container">
+          <li className="currencys__container" key={item.symbol}>
             <p className="currencys__title">{item.symbol}</p>
             <p className="currencys__price">{item.price}</p>
-          </div>
+          </li>
         ))}
       <div></div>
-    </section>
+    </ul>
   );
 }
 

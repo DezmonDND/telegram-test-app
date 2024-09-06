@@ -9,7 +9,7 @@ import Cbr from "./components/Cbr/Cbr";
 
 function App() {
   return (
-    <body className="page">
+    <div className="page">
       <Header></Header>
       <Routes>
         <Route path="/cards" element={<Cards></Cards>}></Route>
@@ -18,7 +18,7 @@ function App() {
         <Route path="/requests" element={<Requests></Requests>}></Route>
       </Routes>
       <Footer></Footer>
-    </body>
+    </div>
   );
 }
 

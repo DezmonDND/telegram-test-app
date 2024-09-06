@@ -1,30 +1,65 @@
 import { useEffect, useState } from "react";
 import { api } from "../utils/api";
+import "./Cbr.css";
 
 function Cbr() {
   const [currencys, setCurrencys] = useState([]);
 
   useEffect(() => {
-    api.getRussianBankCurrencys().then((res) => {
-      setCurrencys(res);
-    });
+    Promise.all([api.getRussianBankCurrencys()])
+      .then((res) => {
+        console.log(res[0].Valute);
+
+        setCurrencys(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }, [setCurrencys]);
 
-  console.log(currencys);
-
   return (
-    <></>
-    // <section className="currencys">
-    //   {currencys &&
-    //     currencys.cbrf.columns.map((item) => (
-    //       <div className="currencys__container">
-    //         <p className="currencys__title">{item}</p>
-    //         {currencys.data.map((item) => (
-    //           <p className="currencys__title">{item}</p>
-    //         ))}
-    //       </div>
-    //     ))}
-    // </section>
+    <section className="currencys">
+      <div className="currencys__block">
+        {currencys.length !== 0 && (
+          <div className="currencys__text">{currencys[0].Valute.AED.Name}</div>
+        )}
+        {currencys.length !== 0 && (
+          <div className="currencys__text">{currencys[0].Valute.AED.Value}</div>
+        )}
+      </div>
+      <div className="currencys__block">
+        {currencys.length !== 0 && (
+          <div className="currencys__text">{currencys[0].Valute.EUR.Name}</div>
+        )}
+        {currencys.length !== 0 && (
+          <div className="currencys__text">{currencys[0].Valute.EUR.Value}</div>
+        )}
+      </div>
+      <div className="currencys__block">
+        {currencys.length !== 0 && (
+          <div className="currencys__text">{currencys[0].Valute.TRY.Name}</div>
+        )}
+        {currencys.length !== 0 && (
+          <div className="currencys__text">{currencys[0].Valute.TRY.Value}</div>
+        )}
+      </div>
+      <div className="currencys__block">
+        {currencys.length !== 0 && (
+          <div className="currencys__text">{currencys[0].Valute.USD.Name}</div>
+        )}
+        {currencys.length !== 0 && (
+          <div className="currencys__text">{currencys[0].Valute.USD.Value}</div>
+        )}
+      </div>
+      <div className="currencys__block">
+        {currencys.length !== 0 && (
+          <div className="currencys__text">{currencys[0].Valute.AMD.Name}</div>
+        )}
+        {currencys.length !== 0 && (
+          <div className="currencys__text">{currencys[0].Valute.AMD.Value}</div>
+        )}
+      </div>
+    </section>
   );
 }
 

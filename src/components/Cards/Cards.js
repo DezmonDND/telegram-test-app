@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
-import "./Cards.css";
 import { api } from "../utils/api";
+import "./Cards.css";
 
 function Cards() {
   const [news, setNews] = useState([]);
   const [showNews, setShowNews] = useState(2);
+  const newsList = getNewsList();
 
   function getNewsList() {
     if (news.length !== 0) {
-      return news.articles.slice(0, showNews);
+      return news.slice(0, showNews);
     }
   }
-
-  const newsList = getNewsList();
 
   function showMoreNews() {
     setShowNews(showNews + 2);
@@ -29,22 +28,29 @@ function Cards() {
       });
   }, [setNews]);
 
+  function convertDate(data) {
+    let date = new Date(data);
+    return date.toLocaleDateString();
+  }
+
   return (
     <section className="cards">
       <div className="cards__block">
         {news.length !== 0 &&
           newsList.map((item) => (
-            <div className="cards__container">
-              <p className="cards__author">{item.author}</p>
+            <div className="cards__container" id={item.id}>
+              <p className="cards__author">{item.title}</p>
               {item.title.length !== 0 && (
-                <p className="cards__title">{item.title}</p>
+                <a
+                  className="cards__link"
+                  href={item.links.article}
+                  target="blank"
+                >
+                  Оригинал статьи
+                </a>
               )}
-              <p className="cards__description">{item.description}</p>
-              <img
-                className="cards__image"
-                src={item.urlToImage}
-                alt={item.title}
-              ></img>
+              <p className="cards__description">{item.details}</p>
+              <p className="cards__date">{convertDate(item.event_date_utc)}</p>
             </div>
           ))}
         <button className="cards__button" type="button" onClick={showMoreNews}>
