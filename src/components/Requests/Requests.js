@@ -15,7 +15,7 @@ function Requests() {
 
     socket.onmessage = (e) => {
       if (e.data.startsWith("Request served by")) {
-        setMessage("Добро пожаловать!");
+        setMessage(e.data);
       } else {
         setMessage(e.data);
       }
@@ -26,33 +26,32 @@ function Requests() {
     };
 
     return () => {
-      setMessage("Соединение завершено!");
+      socket.onclose = () => {
+        setMessage("Соединение завершено!");
+      };
     };
-  }, [setMessage]);
+  }, [socket]);
 
-  function handleAddMessage() {
-    if (socket.readyState) {
-      setIsValid(true);
-      socket.send(
-        JSON.stringify({
-          message: inputValue,
-        })
-      );
-
-      setMessage(inputValue);
-    } else {
-      setTimeout(handleAddMessage, 50);
-    }
-  }
-
-  const handleChange = useCallback((e) => {
+  const handleChange = (e) => {
     if (e.target.value.length !== 0) {
       setIsValid(true);
     } else {
       setIsValid(false);
     }
     setInputValue(e.target.value);
-  }, []);
+  };
+
+  function handleAddMessage() {
+    if (socket.readyState) {
+      setIsValid(true);
+      socket.send(inputValue);
+      setMessage(message);
+      setInputValue("");
+      setIsValid(false);
+    } else {
+      setTimeout(handleAddMessage, 50);
+    }
+  }
 
   return (
     <section className="requests">
