@@ -1,7 +1,6 @@
-# Мототерапия
+# Telegram Test App
 
-Фронтэнд для приложения «Мототерапия» 
-[Посмотреть через браузер](https://telegram-test-app.netlify.app)
+Мини-приложение Telegram Test App 
 [Telegram Bot](https://t.me/MiniAppDnBot)
 
 # Описание проекта
@@ -14,6 +13,7 @@
 - экран взаимодетсвия с WebSocket;
 
 Данные берутся с общедоступных API. Приложение адаптировано под экраны 320-640px.
+[Посмотреть через браузер](https://telegram-test-app.netlify.app)
 
 
 
