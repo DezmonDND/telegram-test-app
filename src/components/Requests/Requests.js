@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./Requests.css";
 
 function Requests() {
-  const socket = new WebSocket("https://echo.websocket.org/.ws");
+  const socket = new WebSocket("https://echo.websocket.org/.sse");
   const [message, setMessage] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [isValid, setIsValid] = useState(false);
@@ -14,11 +14,7 @@ function Requests() {
     };
 
     socket.onmessage = (e) => {
-      if (e.data.startsWith("Request served by")) {
-        setMessage(e.data);
-      } else {
-        setMessage(e.data);
-      }
+      setMessage(e.data);
     };
 
     socket.onerror = (e) => {
@@ -30,7 +26,7 @@ function Requests() {
         setMessage("Соединение завершено!");
       };
     };
-  }, [socket]);
+  }, [message]);
 
   const handleChange = (e) => {
     if (e.target.value.length !== 0) {
@@ -78,7 +74,17 @@ function Requests() {
           Отправить сообщение
         </button>
       </div>
-      {message && <p className="requests__message">{message}</p>}
+      {message ? (
+        <p className="requests__message">{message}</p>
+      ) : (
+        <div
+          style={{
+            height: 50,
+            marginTop: 15,
+            marginBottom: 15,
+          }}
+        ></div>
+      )}
     </section>
   );
 }
