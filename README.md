@@ -1,7 +1,8 @@
 # Мототерапия
 
 Фронтэнд для приложения «Мототерапия» 
-[Посмотреть здесь](https://telegram-test-app.netlify.app)
+[Посмотреть через браузер](https://telegram-test-app.netlify.app)
+[Telegram Bot](https://t.me/MiniAppDnBot)
 
 # Описание проекта
 
