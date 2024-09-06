@@ -32,5 +32,5 @@ export class Api {
 export const api = new Api({
   cardsUrl: "https://api.spacexdata.com/v3/history",
   currencysUrl: "https://data-api.binance.vision/api/v3/ticker/price",
-  cbrUrl: "http://www.cbr-xml-daily.ru/daily_json.js",
+  cbrUrl: "https://www.cbr-xml-daily.ru/daily_json.js",
 });
