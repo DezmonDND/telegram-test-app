@@ -3,6 +3,7 @@ import "./Footer.css";
 import IconNews from "../../images/newspaper_icon.svg";
 import IconMoney from "../../images/money_icon.svg";
 import IconInternet from "../../images/internet_icon.svg";
+import IconCrypto from "../../images/crypto_icon.svg";
 
 function Footer() {
   return (
@@ -28,7 +29,7 @@ function Footer() {
             }
           >
             <span className="footer__link-name">Курсы валют</span>
-            <img className="footer__image" src={IconMoney} alt=""></img>
+            <img className="footer__image" src={IconCrypto} alt=""></img>
           </NavLink>
         </div>
         <div className="footer__buttons-block">
