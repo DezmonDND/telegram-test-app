@@ -7,7 +7,21 @@ import { symbol } from "../utils/symbols";
 function Cbr() {
   const [currencys, setCurrencys] = useState([]);
   const [date, setDate] = useState([]);
-  const currentDate = new Date().toLocaleDateString();
+
+  const previousDate = () => {
+    const currentDate = new Date();
+
+    if (currentDate.getDay() === 6) {
+      currentDate.setDate(currentDate.getDate() - 2);
+      return currentDate.toLocaleDateString();
+    } else if (currentDate.getDay() === 0) {
+      currentDate.setDate(currentDate.getDate() - 3);
+      return currentDate.toLocaleDateString();
+    } else {
+      currentDate.setDate(currentDate.getDate() - 1);
+      return currentDate.toLocaleDateString();
+    }
+  };
 
   useEffect(() => {
     api
@@ -35,7 +49,7 @@ function Cbr() {
             Курсы валют
           </p>
           <div className="bank-rates__title-dates">
-            <p className="bank-rates__title">{currentDate}</p>
+            <p className="bank-rates__title">{previousDate()}</p>
             <p className="bank-rates__title">{convertDate(date.Date) || ""}</p>
           </div>
         </div>
