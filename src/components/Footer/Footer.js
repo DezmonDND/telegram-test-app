@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./Footer.css";
 import IconNews from "../../images/newspaper_icon.svg";
 import IconMoney from "../../images/money_icon.svg";
