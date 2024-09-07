@@ -18,6 +18,7 @@
   outline: 1px solid #fff;
   overflow: hidden;
   background-color: #fff;
+  box-shadow: 0 0 10px 2px #c5bbbb;
 }
 
 .cards__author {

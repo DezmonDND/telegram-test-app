@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Route, Routes, useLocation } from "react-router";
 import "./App.css";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
@@ -8,9 +8,23 @@ import Requests from "./components/Requests/Requests";
 import Cbr from "./components/Cbr/Cbr";
 
 function App() {
+  const location = useLocation();
+
+  const headerTitle = () => {
+    if (location.pathname === "/") {
+      return "Новости";
+    } else if (location.pathname === "/currencys") {
+      return "Курсы криптовалют (Binance)";
+    } else if (location.pathname === "/cbr") {
+      return "Курсы валют (ЦБ РФ)";
+    } else {
+      return "WebSocket";
+    }
+  };
+
   return (
     <div className="page">
-      <Header></Header>
+      <Header title={headerTitle}></Header>
       <Routes>
         <Route path="/" element={<Cards></Cards>}></Route>
         <Route path="/currencys" element={<Currencys></Currencys>}></Route>

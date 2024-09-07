@@ -3,7 +3,7 @@
   width: 100%;
   min-height: 70px;
   color: #fff;
-  background-color: #2f2f2f;
+  background-color: #6984b2;
   position: fixed;
   bottom: 0;
 }
@@ -24,6 +24,20 @@
   color: #fff;
   text-decoration: none;
   gap: 5px;
+}
+
+.footer__button-link_active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: #fff;
+  text-decoration: none;
+  gap: 5px;
+  background-color: #707f9c;
+  box-shadow: 0 0 10px 2px #fee600;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .footer__image {

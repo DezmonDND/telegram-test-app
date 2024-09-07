@@ -1,9 +1,11 @@
 import "./Header.css";
 
-function Header() {
+function Header(props) {
+const {title} = props;
+
   return (
     <header className="header">
-      <p>Тестовое приложение</p>
+      <h2 className="header__title">{title()}</h2>
     </header>
   );
 }

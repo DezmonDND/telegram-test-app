@@ -29,9 +29,13 @@
 
 .bank-rates__data {
   display: flex;
-
   align-items: center;
   padding: 8px 0;
+  border-bottom: 0.3px solid rgba(0, 0, 0, .2);
+}
+
+.bank-rates__data:last-of-type {
+  border-bottom: none;
 }
 
 .bank-rates__title {
@@ -43,6 +47,7 @@
 .bank-rates__title_left {
   text-align: left;
 }
+
 .bank-rates__icon {
   width: 20px;
   height: 20px;

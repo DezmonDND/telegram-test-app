@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { api } from "../utils/api";
 import { flag } from "../utils/flags";
 import "./Cbr.css";
+import { symbol } from "../utils/symbols";
 
 function Cbr() {
   const [currencys, setCurrencys] = useState([]);
@@ -28,11 +29,6 @@ function Cbr() {
 
   return (
     <section className="bank-rates">
-      {date.Date !== "" && (
-        <h2 className="bank-rates__title_cbr">{`Курс валют на: ${convertDate(
-          date.Date
-        )}`}</h2>
-      )}
       <div className="bank-rates__container">
         <div className="bank-rates__titles">
           <p className="bank-rates__title bank-rates__title_left">
@@ -45,7 +41,7 @@ function Cbr() {
         </div>
         {currencys.length !== 0 &&
           currencys.map((currency) => (
-            <div className="bank-rates__data">
+            <div className="bank-rates__data" key={currency.ID}>
               <img
                 className="bank-rates__icon"
                 src={flag(currency.CharCode)}
@@ -53,8 +49,10 @@ function Cbr() {
               ></img>
               <div className="bank-rates__rate-name">
                 <div className="bank-rates__chars">
-                  <div className="bank-rates__char">{`${currency.CharCode}, `}</div>
-                  <span className="bank-rates__span">1$</span>
+                  <div className="bank-rates__char">{`${currency.CharCode},  `}</div>
+                  <span className="bank-rates__span">
+                    {`1${symbol(currency.CharCode).toLocaleLowerCase()}`}
+                  </span>
                 </div>
                 <div className="bank-rates__char-name">{currency.Name}</div>
               </div>

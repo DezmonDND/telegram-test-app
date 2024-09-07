@@ -1,11 +1,16 @@
 .header {
   display: flex;
-  color: #fff;
-  background-color: #2f2f2f;
+  color: #2b2d33;
+  background-color: #fee600;
   justify-content: center;
   position: fixed;
   top: 0;
   right: 0;
   left: 0;
   height: 60px;
+  z-index: 2;
+}
+
+.header__title {
+  font-size: 20px;
 }

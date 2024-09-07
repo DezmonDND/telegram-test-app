@@ -21,7 +21,6 @@ function Currencys() {
             <p className="currencys__price">{item.price}</p>
           </li>
         ))}
-      <div></div>
     </ul>
   );
 }
