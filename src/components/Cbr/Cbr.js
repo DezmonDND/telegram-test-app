@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { api } from "../utils/api";
+import { flag } from "../utils/flags";
 import "./Cbr.css";
 
 function Cbr() {
   const [currencys, setCurrencys] = useState([]);
   const [date, setDate] = useState([]);
+  const currentDate = new Date().toLocaleDateString();
 
   useEffect(() => {
     api
@@ -25,19 +27,58 @@ function Cbr() {
   }
 
   return (
-    <section className="currencys">
+    <section className="bank-rates">
       {date.Date !== "" && (
-        <h2 className="currencys__title_cbr">{`Курс валют на: ${convertDate(
+        <h2 className="bank-rates__title_cbr">{`Курс валют на: ${convertDate(
           date.Date
         )}`}</h2>
       )}
-      {currencys.length !== 0 &&
-        currencys.map((currency) => (
-          <div className="currencys__block" key={currency.Name}>
-            <div className="currencys__text">{currency.Name}</div>
-            <div className="currencys__text">{currency.Value}</div>
+      <div className="bank-rates__container">
+        <div className="bank-rates__titles">
+          <p className="bank-rates__title bank-rates__title_left">
+            Курсы валют
+          </p>
+          <div className="bank-rates__title-dates">
+            <p className="bank-rates__title">{currentDate}</p>
+            <p className="bank-rates__title">{convertDate(date.Date) || ""}</p>
           </div>
-        ))}
+        </div>
+        {currencys.length !== 0 &&
+          currencys.map((currency) => (
+            <div className="bank-rates__data">
+              <img
+                className="bank-rates__icon"
+                src={flag(currency.CharCode)}
+                alt={`${currency.Name} логотип`}
+              ></img>
+              <div className="bank-rates__rate-name">
+                <div className="bank-rates__chars">
+                  <div className="bank-rates__char">{`${currency.CharCode}, `}</div>
+                  <span className="bank-rates__span">1$</span>
+                </div>
+                <div className="bank-rates__char-name">{currency.Name}</div>
+              </div>
+              <div className="bank-rates__price-block">
+                <div className="bank-rates__value">{`${currency.Previous.toString().slice(
+                  0,
+                  5
+                )} ₽`}</div>
+                <div className="bank-rates__value">{`${currency.Value.toString().slice(
+                  0,
+                  5
+                )} ₽`}</div>
+                <span
+                  className="bank-rates__arrow"
+                  style={{
+                    color: currency.Value > currency.Previous ? "green" : "red",
+                  }}
+                >
+                  {currency.Value > currency.Previous ? "⭡" : "⭣"}
+                </span>
+              </div>
+            </div>
+          ))}
+      </div>
     </section>
   );
 }
