@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import { useEffect, useState } from "react";
 import { api } from "../utils/api";
 import { flag } from "../utils/flags";
