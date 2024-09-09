@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { api } from "../utils/api";
 import { flag } from "../utils/flags";
 import "./Cbr.css";
-import { symbol } from "../utils/symbols";
+import CurrencysList from "../CurrencysList/CurrencysList";
 
 function Cbr() {
   const [currencys, setCurrencys] = useState([]);
+  const [filteredCurrencys, setFilteredCurrencys] = useState([]);
   const [date, setDate] = useState([]);
+  const [value, setValue] = useState("");
 
   const previousDate = () => {
     const currentDate = new Date();
@@ -17,6 +19,9 @@ function Cbr() {
     } else if (currentDate.getDay() === 0) {
       currentDate.setDate(currentDate.getDate() - 3);
       return currentDate.toLocaleDateString();
+    } else if (currentDate.getDay() === 1) {
+      currentDate.setDate(currentDate.getDate() - 4);
+      return currentDate.toLocaleDateString();
     } else {
       currentDate.setDate(currentDate.getDate() - 1);
       return currentDate.toLocaleDateString();
@@ -24,25 +29,42 @@ function Cbr() {
   };
 
   useEffect(() => {
-    api
-      .getRussianBankCurrencys()
-      .then((res) => {
-        let result = Object.values(res.Valute);
-        setCurrencys(result);
-        setDate(res);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, [setCurrencys]);
+    if (!value) {
+      api
+        .getRussianBankCurrencys()
+        .then((res) => {
+          let result = Object.values(res.Valute);
+          setCurrencys(result);
+          setDate(res);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    } else {
+      setFilteredCurrencys(
+        currencys.filter(
+          (item) =>
+            item.Name.toLocaleLowerCase().includes(value.toLocaleLowerCase()) ||
+            item.CharCode.toLocaleLowerCase().includes(
+              value.toLocaleLowerCase()
+            )
+        )
+      );
+    }
+  }, [value]);
 
   function convertDate(data) {
     let date = new Date(data);
     return date.toLocaleDateString();
   }
 
+  function handleChange(e) {
+    setValue(e.target.value);
+  }
+
   return (
     <section className="bank-rates">
+      <input type="text" value={value} onChange={handleChange}></input>
       <div className="bank-rates__container">
         <div className="bank-rates__titles">
           <p className="bank-rates__title bank-rates__title_left">
@@ -53,43 +75,17 @@ function Cbr() {
             <p className="bank-rates__title">{convertDate(date.Date) || ""}</p>
           </div>
         </div>
-        {currencys.length !== 0 &&
-          currencys.map((currency) => (
-            <div className="bank-rates__data" key={currency.ID}>
-              <img
-                className="bank-rates__icon"
-                src={flag(currency.CharCode)}
-                alt={`${currency.Name} логотип`}
-              ></img>
-              <div className="bank-rates__rate-name">
-                <div className="bank-rates__chars">
-                  <div className="bank-rates__char">{`${currency.CharCode},  `}</div>
-                  <span className="bank-rates__span">
-                    {`1${symbol(currency.CharCode).toLocaleLowerCase()}`}
-                  </span>
-                </div>
-                <div className="bank-rates__char-name">{currency.Name}</div>
+        {!value && currencys.length !== 0
+          ? currencys.map((currency) => (
+              <div className="bank-rates__data" key={currency.ID}>
+                <CurrencysList currency={currency} flag={flag} />
               </div>
-              <div className="bank-rates__price-block">
-                <div className="bank-rates__value">{`${currency.Previous.toString().slice(
-                  0,
-                  5
-                )} ₽`}</div>
-                <div className="bank-rates__value">{`${currency.Value.toString().slice(
-                  0,
-                  5
-                )} ₽`}</div>
-                <span
-                  className="bank-rates__arrow"
-                  style={{
-                    color: currency.Value > currency.Previous ? "green" : "red",
-                  }}
-                >
-                  {currency.Value > currency.Previous ? "⭡" : "⭣"}
-                </span>
+            ))
+          : filteredCurrencys.map((currency) => (
+              <div className="bank-rates__data" key={currency.ID}>
+                <CurrencysList currency={currency} flag={flag} />
               </div>
-            </div>
-          ))}
+            ))}
       </div>
     </section>
   );
