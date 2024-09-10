@@ -14,7 +14,7 @@ function App() {
     if (location.pathname === "/") {
       return "Новости";
     } else if (location.pathname === "/currencys") {
-      return "Курсы криптовалют (Binance)";
+      return "Курсы криптовалют";
     } else if (location.pathname === "/cbr") {
       return "Курсы валют (ЦБ РФ)";
     } else {

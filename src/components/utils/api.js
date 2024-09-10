@@ -1,8 +1,8 @@
 export class Api {
-  constructor({ cardsUrl, currencysUrl, cbrUrl }) {
+  constructor({ cardsUrl, cbrUrl, coingeckoUrl }) {
     this._cardsUrl = cardsUrl;
-    this._currencysUrl = currencysUrl;
     this._cbrUrl = cbrUrl;
+    this._coingeckoUrl = coingeckoUrl;
   }
 
   _checkError(res) {
@@ -18,19 +18,22 @@ export class Api {
     }).then(this._checkError);
   }
 
-  getCurrencys() {
-    return fetch(this._currencysUrl, {
-      method: "GET",
-    }).then(this._checkError);
-  }
-
   getRussianBankCurrencys() {
     return fetch(this._cbrUrl, {}).then(this._checkError);
+  }
+
+  getAllCrypto() {
+    return fetch(this._coingeckoUrl, {
+      headers: {
+        "x-cg-demo-api-key": "CG-ux1EvCPiDbBMxr9aFCi6xqU9",
+      },
+    }).then(this._checkError);
   }
 }
 
 export const api = new Api({
   cardsUrl: "https://api.spacexdata.com/v3/history",
-  currencysUrl: "https://data-api.binance.vision/api/v3/ticker/price",
   cbrUrl: "https://www.cbr-xml-daily.ru/daily_json.js",
+  coingeckoUrl:
+    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd",
 });
