@@ -15,6 +15,11 @@
 Данные берутся с общедоступных API. Приложение адаптировано под экраны 320-640px.
 [Посмотреть через браузер](https://telegram-test-app.netlify.app)
 
+<div align="center">
+  <img src="https://github.com/DezmonDND/telegram-test-app/blob/main/preview.png?raw=true" alt="Превью's custom image" width='330px' />
+  <img src="https://github.com/DezmonDND/telegram-test-app/blob/main/preview_1.png?raw=true" alt="Превью's custom image" width='330px' />
+  <img src="https://github.com/DezmonDND/telegram-test-app/blob/main/preview_2.png?raw=true" alt="Превью's custom image"  width='330px'/>
+</div>
 
 
 
